@@ -5,6 +5,6 @@ use App\Models\Vehiculo;
 
 class VehiculoRepo {
     public function listarCombo() {
-        return Vehiculo::all();
+        return Vehiculo::where('enuso',0)->get();
     }
 }

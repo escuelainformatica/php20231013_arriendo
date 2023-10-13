@@ -10,6 +10,8 @@ Route::get('/', function () {
 });
 Route::controller(ArriendoController::class)->group(function() {
     Route::get("/tabla",'tabla');
-    Route::get("/arriendo",'arriendo');
+    Route::get("/arriendo",'arriendoGet');
     Route::post("/arriendo",'arriendoPost');
+    Route::get("/devolucion",'devolucionGet');
+    Route::post("/devolucion",'devolucionPost');
 });

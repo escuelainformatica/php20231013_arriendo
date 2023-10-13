@@ -2,9 +2,9 @@
 <table border=1>
     @foreach ($arriendos as $arriendo)
         <tr>
-            <td>{{ $arriendo->rutcliente }}
+            <td>{{$arriendo->cliente->nombre}} {{$arriendo->cliente->apellido}} ({{ $arriendo->rutcliente }})
             </td>
-            <td>{{ $arriendo->patentevehiculo }}
+            <td>{{$arriendo->vehiculo->marca}} ({{ $arriendo->patentevehiculo }})
             </td>
             <td>{{ $arriendo->fecha }}
             </td>
@@ -12,5 +12,8 @@
             </td>
         </tr>
     @endforeach
-
 </table>
+
+<a href='/arriendo'>Agregar un arriendo</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href='/devolucion'>Devolver arriendo</a>

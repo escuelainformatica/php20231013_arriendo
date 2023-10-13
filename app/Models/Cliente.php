@@ -10,6 +10,9 @@ class Cliente extends Model
     use HasFactory;
 
     public $primaryKey="rut";
+    public $keyType="string";
+    public $incrementing=false;
+
 
     public $fillable=['rut','nombre','apellido'];
 

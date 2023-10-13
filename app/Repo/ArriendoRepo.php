@@ -7,7 +7,10 @@ use App\Models\Vehiculo;
 
 class ArriendoRepo {
     public function listarTabla() {
-        return Arriendo::all();
+        return Arriendo::with(['cliente','vehiculo'])->get();
+    }
+    public function listarCombo() {
+        return Arriendo::whereNull('fechadevolucion')->get();
     }
 
     public function agregarArriendo(Arriendo $arriendo):Arriendo {
@@ -31,5 +34,29 @@ class ArriendoRepo {
         // guardar el arriendo.
         $arriendo->save();
         return $arriendo;
+    }
+    public function devolver($idArriendo) {
+        // el arriendo no existe.
+        $arriendo=Arriendo::find($idArriendo);
+        if($arriendo===null) {
+            throw new \RuntimeException("No existe el arriendo");
+        }
+        // el vehiculo ya fue regresado.
+        $vehiculo=Vehiculo::find($arriendo->patentevehiculo);
+        if($vehiculo===null) {
+            throw new \RuntimeException("No existe el vehiculo");
+        }
+        if($vehiculo->enuso!=1) {
+            throw new \RuntimeException("El vehiculo no esta en uso y por lo tanto no se puede devolver");
+        }
+        // pendiente: probar el cliente si existe.
+        // modificar la fecha devolucion del arriendo
+        $arriendo->fechadevolucion=date('Y-m-d H:i:s');
+        $arriendo->save();
+        // marcar el vehiculo como libre
+        $vehiculo->enuso=0;
+        $vehiculo->save();
+        return $arriendo;
+
     }
 }

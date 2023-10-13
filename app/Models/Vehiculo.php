@@ -9,6 +9,9 @@ class Vehiculo extends Model
 {
     use HasFactory;
     public $primaryKey="patente";
+    public $keyType="string";
+    public $incrementing=false;
+
     public $fillable=['patente','marca','costopordia','enuso'];
     public $timestamps=false;
 }
